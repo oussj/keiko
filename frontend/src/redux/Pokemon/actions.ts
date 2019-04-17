@@ -1,9 +1,13 @@
-import { createStandardAction } from 'typesafe-actions';
-import { PokemonType } from './types';
+import { PokemonMap } from "redux/Pokemon/reducer";
 
-export const fetchPokemonsSuccess = createStandardAction('Pokemon/FETCH_POKEMON_SUCCESS')<{
-  pokemons: PokemonType[];
-}>();
+export const actionsTypes = {
+  fetchPokemonSuccess: 'Pokemon/FETCH_POKEMON_SUCCESS'
+}
+
+export const fetchPokemonsSuccess = (pokemons: PokemonMap) => ({
+  type: actionsTypes.fetchPokemonSuccess,
+  pokemons,
+})
 
 export default {
   fetchPokemonsSuccess,

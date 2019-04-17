@@ -1,14 +1,22 @@
-import { ActionType, getType } from 'typesafe-actions';
-
 import { AnyAction } from 'redux';
-import { PokemonType } from './types';
+import { PokemonType } from "redux/Pokemon/types";
+import { actionsTypes } from './actions';
 
-export type PokemonState = Readonly<Record<string, PokemonType>>;
+export type PokemonMap = Record<string, PokemonType>
+
+export type PokemonState = Readonly<PokemonMap>;
 
 const initialState: PokemonState = {};
 
 const reducer = (state: PokemonState = initialState, action: AnyAction) => {
-  return state;
+  switch (action.type) {
+    case actionsTypes.fetchPokemonSuccess :
+      return {
+        ...action.pokemons
+      }
+    default :
+      return state
+  }
 };
 
 export default reducer;
