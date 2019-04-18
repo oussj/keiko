@@ -7,7 +7,7 @@ import Style from './WithDataFetching.style';
 const WithDataFetching = <P extends object>(
   fetchFunction: (props: P) => any,
   shouldCallEffect: (props: P) => any[],
-  successFunction?: (props: P, data: PokemonType[]) => void,
+  successFunction?: (props: P, data: any) => void,
 ) => (BaseComponent: React.ComponentType<P>) => (props: P) => {
   const [data] = React.useState<any>(null);
   const [loading, setLoading] = React.useState<boolean>(false);

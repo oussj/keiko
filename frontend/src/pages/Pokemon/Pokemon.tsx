@@ -2,6 +2,7 @@ import * as React from 'react';
 
 import { RouteComponentProps } from 'react-router';
 import Style from './Pokemon.style';
+import { PokemonType } from "redux/Pokemon/types";
 
 interface RouteParams {
   id: string;
@@ -9,6 +10,7 @@ interface RouteParams {
 
 export interface Props extends RouteComponentProps<RouteParams> {
   pokemon: Pokemon | null;
+  fetchPokemonSuccess: (pokemon: PokemonType) => void
 }
 
 interface Pokemon {

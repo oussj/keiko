@@ -1,12 +1,19 @@
 import { PokemonMap } from "redux/Pokemon/reducer";
+import { PokemonType } from "redux/Pokemon/types";
 
 export const actionsTypes = {
-  fetchPokemonSuccess: 'Pokemon/FETCH_POKEMON_SUCCESS'
+  fetchPokemonsSuccess: 'Pokemon/FETCH_POKEMONS_SUCCESS',
+  fetchPokemonSuccess: 'Pokemon/FETCH_POKEMON_SUCCESS',
 }
 
 export const fetchPokemonsSuccess = (pokemons: PokemonMap) => ({
-  type: actionsTypes.fetchPokemonSuccess,
+  type: actionsTypes.fetchPokemonsSuccess,
   pokemons,
+})
+
+export const fetchPokemonSuccess = (pokemon: PokemonType) => ({
+  type: actionsTypes.fetchPokemonSuccess,
+  pokemon,
 })
 
 export default {
