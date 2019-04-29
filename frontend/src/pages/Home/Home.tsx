@@ -1,11 +1,10 @@
 import * as React from 'react';
 
 import Style from './Home.style';
+import Pokemon from 'components/Pokemon/Pokemon';
 
 class Home extends React.Component {
   render(): React.ReactNode {
-    const pokemon = 'Carapuce';
-
     return (
       <Style.Intro>
         <div>Bienvenue sur ton futur pokédex !</div>
@@ -13,7 +12,9 @@ class Home extends React.Component {
           Tu vas pouvoir apprendre tout ce qu'il faut sur React, Redux et Symfony, et attraper des
           pokemons !
         </div>
-        <div>Commence par créer ton premier pokemon: {pokemon}</div>
+        <Pokemon name="squirtle" id={7} />
+        <Pokemon name="pikachu" id={25} />
+        <Pokemon name="raticate" id={20} />
       </Style.Intro>
     );
   }
