@@ -1,61 +1,62 @@
-import * as React from 'react';
+import React, { useState, useEffect } from 'react';
 
 import Pokemon from 'components/Pokemon/Pokemon';
 import { makeGetRequest } from 'services/networking/request';
 import { GlobalStyle } from './Global.style';
 import Style from './Home.style';
 
+interface PokemonData {
+  id: number;
+  name: string;
+  weight: number;
+  height: number;
+}
+
 interface State {
-  pokemons: Array<{
-    id: number;
-    name: string;
-    weight: number;
-    height: number;
-  }>;
+  pokemons: PokemonData[];
   errorHappened: boolean;
 }
 
-class Home extends React.Component<{}, State> {
-  constructor(props: any) {
-    super(props);
-    this.state = { pokemons: [], errorHappened: false };
-  }
+function Home() {
+  const [pokemons, setPokemons] = useState([]);
+  const [errorHappened, setErrorHappened] = useState(false);
 
-  public async componentDidMount() {
-    try {
-      const response = await makeGetRequest('/pokemon');
-      this.setState({ pokemons: response.body });
-    } catch (err) {
-      this.setState({ errorHappened: true });
-    }
-  }
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await makeGetRequest('/pokemon');
+        setPokemons(response.body);
+      } catch (err) {
+        setErrorHappened(true);
+      }
+    };
+    fetchData();
+  }, []);
 
-  render(): React.ReactNode {
-    return (
-      <Style.Homepage>
-        <GlobalStyle />
-        <Style.Title>Pokedex</Style.Title>
-        <Style.Pokedex>
-          {this.state.pokemons.length > 0 ? (
-            this.state.errorHappened ? (
-              <div>The app could not retrieve pokemons</div>
-            ) : (
-              this.state.pokemons.map(pokemonData => (
-                <Pokemon
-                  name={pokemonData.name}
-                  id={pokemonData.id}
-                  weight={pokemonData.weight}
-                  height={pokemonData.height}
-                />
-              ))
-            )
+  return (
+    <Style.Homepage>
+      <GlobalStyle />
+      <Style.Title>Pokedex</Style.Title>
+      <Style.Pokedex>
+        {pokemons.length > 0 ? (
+          errorHappened ? (
+            <div>The app could not retrieve pokemons</div>
           ) : (
-            <img src="loader.svg" alt="loader" />
-          )}
-        </Style.Pokedex>
-      </Style.Homepage>
-    );
-  }
+            pokemons.map((pokemonData: PokemonData) => (
+              <Pokemon
+                name={pokemonData.name}
+                id={pokemonData.id}
+                weight={pokemonData.weight}
+                height={pokemonData.height}
+              />
+            ))
+          )
+        ) : (
+          <img src="loader.svg" alt="loader" />
+        )}
+      </Style.Pokedex>
+    </Style.Homepage>
+  );
 }
 
 export default Home;
