@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 
 import Style from './Pokemon.style';
 
@@ -10,15 +10,26 @@ interface Props {
 }
 
 function Pokemon(props: Props) {
+  const [clicked, setClicked] = useState(false);
+
   return (
     <Style.Intro>
       <div>{props.name.charAt(0).toUpperCase() + props.name.slice(1)}</div>
-      <img
-        alt={props.name}
-        src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${
-          props.id
-        }.png`}
-      />
+      <div className="imageContainer">
+        <img
+          alt={props.name}
+          src={
+            !clicked
+              ? `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${
+                  props.id
+                }.png`
+              : `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/${
+                  props.id
+                }.png`
+          }
+        />
+        <img className="turnIcon" src={'turn-ico.svg'} onClick={() => setClicked(!clicked)} />
+      </div>
       <div>
         Id: <span className="numberElement">{props.id}</span>
       </div>

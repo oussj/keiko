@@ -13,8 +13,16 @@ export default {
     margin-bottom: 10px;
     line-height: 15px;
 
-    .numberElement{
-      font-weight:600;
+    .numberElement {
+      font-weight: 600;
+    }
+    .turnIcon {
+      position: absolute;
+      left: 75px;
+    }
+    .imageContainer {
+      position: relative;
+      width: 100px;
     }
   `,
 };
