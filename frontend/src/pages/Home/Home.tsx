@@ -21,14 +21,13 @@ class Home extends React.Component<{}, State> {
     this.state = { pokemons: [], errorHappened: false };
   }
 
-  componentDidMount() {
-    makeGetRequest('/pokemon')
-      .then(response => {
-        this.setState({ pokemons: response.body });
-      })
-      .catch(err => {
-        this.setState({ errorHappened: true });
-      });
+  public async componentDidMount() {
+    try {
+      const response = await makeGetRequest('/pokemon');
+      this.setState({ pokemons: response.body });
+    } catch (err) {
+      this.setState({ errorHappened: true });
+    }
   }
 
   render(): React.ReactNode {
