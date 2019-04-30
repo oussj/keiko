@@ -11,7 +11,7 @@ export default {
     padding: 10px;
     margin-right: 10px;
     margin-bottom: 10px;
-    line-height: 1.5;
+    line-height: 15px;
 
     .numberElement{
       font-weight:600;

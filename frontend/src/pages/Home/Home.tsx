@@ -15,6 +15,11 @@ interface State {
 }
 
 class Home extends React.Component<{}, State> {
+  constructor(props: any) {
+    super(props);
+    this.state = { pokemons: [] };
+  }
+
   componentDidMount() {
     makeGetRequest('/pokemon').then(response => {
       this.setState({ pokemons: response.body });
@@ -27,7 +32,7 @@ class Home extends React.Component<{}, State> {
         <GlobalStyle />
         <Style.Title>Pokedex</Style.Title>
         <Style.Pokedex>
-          {this.state ? (
+          {this.state.pokemons.length > 0 ? (
             this.state.pokemons.map(pokemonData => (
               <Pokemon
                 name={pokemonData.name}
@@ -37,7 +42,7 @@ class Home extends React.Component<{}, State> {
               />
             ))
           ) : (
-            <div>Your future pokedex will be here</div>
+            <img src="loader.svg" alt="loader" />
           )}
         </Style.Pokedex>
       </Style.Homepage>
