@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 
+import { Link } from 'react-router-dom';
 import Style from './Pokemon.style';
 
 interface Props {
@@ -13,7 +14,7 @@ function Pokemon(props: Props) {
   const [clicked, setClicked] = useState(false);
 
   return (
-    <Style.Intro>
+    <Style.Intro to={`pokemon/${props.id}`}>
       <div>{props.name.charAt(0).toUpperCase() + props.name.slice(1)}</div>
       <div className="imageContainer">
         <img
@@ -28,7 +29,7 @@ function Pokemon(props: Props) {
                 }.png`
           }
         />
-        <img className="turnIcon" src={'turn-ico.svg'} onClick={() => setClicked(!clicked)} />
+        <img className="turnIcon" src={'/turn-ico.svg'} onClick={() => setClicked(!clicked)} />
       </div>
       <div>
         Id: <span className="numberElement">{props.id}</span>
