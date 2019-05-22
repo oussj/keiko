@@ -1,5 +1,6 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 
+import { Link } from 'react-router-dom';
 import Style from './Pokemon.style';
 
 interface Props {
@@ -9,35 +10,38 @@ interface Props {
   height: number;
 }
 
-class Pokemon extends React.Component<Props> {
-  displayName(): string {
-    return this.props.name.charAt(0).toUpperCase() + this.props.name.slice(1);
-  }
+function Pokemon(props: Props) {
+  const [clicked, setClicked] = useState(false);
 
-  render(): React.ReactNode {
-    const pokemon = 'Carapuce';
-
-    return (
-      <Style.Intro>
-        <div>{this.displayName()}</div>
+  return (
+    <Style.Intro to={`pokemon/${props.id}`}>
+      <div>{props.name.charAt(0).toUpperCase() + props.name.slice(1)}</div>
+      <div className="imageContainer">
         <img
-          alt={this.props.name}
-          src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${
-            this.props.id
-          }.png`}
+          alt={props.name}
+          src={
+            !clicked
+              ? `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${
+                  props.id
+                }.png`
+              : `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/${
+                  props.id
+                }.png`
+          }
         />
-        <div>
-          Id: <span className='numberElement'>{this.props.id}</span>
-        </div>
-        <div>
-          Weight: <span className='numberElement'>{this.props.weight}</span> kg
-        </div>
-        <div>
-          Height: <span className='numberElement'>{this.props.height}</span> cm
-        </div>
-      </Style.Intro>
-    );
-  }
+        <img className="turnIcon" src={'/turn-ico.svg'} onClick={() => setClicked(!clicked)} />
+      </div>
+      <div>
+        Id: <span className="numberElement">{props.id}</span>
+      </div>
+      <div>
+        Weight: <span className="numberElement">{props.weight}</span> kg
+      </div>
+      <div>
+        Height: <span className="numberElement">{props.height}</span> cm
+      </div>
+    </Style.Intro>
+  );
 }
 
 export default Pokemon;

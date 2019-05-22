@@ -1,39 +1,41 @@
-import * as React from 'react';
+import React, { useEffect, useState } from 'react';
 
 import Pokemon from 'components/Pokemon/Pokemon';
 import { makeGetRequest } from 'services/networking/request';
-import { GlobalStyle } from './Global.style';
 import Style from './Home.style';
 
-interface State {
-  pokemons: Array<{
-    id: number;
-    name: string;
-    weight: number;
-    height: number;
-  }>;
+interface PokemonData {
+  id: number;
+  name: string;
+  weight: number;
+  height: number;
 }
 
-class Home extends React.Component<{}, State> {
-  constructor(props: any) {
-    super(props);
-    this.state = { pokemons: [] };
-  }
+function Home() {
+  const [pokemons, setPokemons] = useState([]);
+  const [errorHappened, setErrorHappened] = useState(false);
 
-  componentDidMount() {
-    makeGetRequest('/pokemon').then(response => {
-      this.setState({ pokemons: response.body });
-    });
-  }
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await makeGetRequest('/pokemon');
+        setPokemons(response.body);
+      } catch (err) {
+        setErrorHappened(true);
+      }
+    };
+    fetchData();
+  }, []);
 
-  render(): React.ReactNode {
-    return (
-      <Style.Homepage>
-        <GlobalStyle />
-        <Style.Title>Pokedex</Style.Title>
-        <Style.Pokedex>
-          {this.state.pokemons.length > 0 ? (
-            this.state.pokemons.map(pokemonData => (
+  return (
+    <Style.Homepage>
+      <Style.Title>Pokedex</Style.Title>
+      <Style.Pokedex>
+        {pokemons.length > 0 ? (
+          errorHappened ? (
+            <div>The app could not retrieve pokemons</div>
+          ) : (
+            pokemons.map((pokemonData: PokemonData) => (
               <Pokemon
                 name={pokemonData.name}
                 id={pokemonData.id}
@@ -41,13 +43,13 @@ class Home extends React.Component<{}, State> {
                 height={pokemonData.height}
               />
             ))
-          ) : (
-            <img src="loader.svg" alt="loader" />
-          )}
-        </Style.Pokedex>
-      </Style.Homepage>
-    );
-  }
+          )
+        ) : (
+          <img src="loader.svg" alt="loader" />
+        )}
+      </Style.Pokedex>
+    </Style.Homepage>
+  );
 }
 
 export default Home;
