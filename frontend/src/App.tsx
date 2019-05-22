@@ -8,6 +8,7 @@ import { Route } from 'react-router';
 import { Store } from 'redux';
 import { Persistor } from 'redux-persist';
 import { PersistGate } from 'redux-persist/integration/react';
+import { GlobalStyle } from './Global.style';
 
 import Root from './components/Root';
 import Routes from './routes';
@@ -21,6 +22,7 @@ interface Props {
 
 const RootComponentWithRoutes: React.FunctionComponent = () => (
   <Root>
+    <GlobalStyle />
     <Routes />
   </Root>
 );

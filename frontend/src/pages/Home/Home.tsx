@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 
 import Pokemon from 'components/Pokemon/Pokemon';
 import { makeGetRequest } from 'services/networking/request';
-import { GlobalStyle } from './Global.style';
 import Style from './Home.style';
 
 interface PokemonData {
@@ -10,11 +9,6 @@ interface PokemonData {
   name: string;
   weight: number;
   height: number;
-}
-
-interface State {
-  pokemons: PokemonData[];
-  errorHappened: boolean;
 }
 
 function Home() {
@@ -35,7 +29,6 @@ function Home() {
 
   return (
     <Style.Homepage>
-      <GlobalStyle />
       <Style.Title>Pokedex</Style.Title>
       <Style.Pokedex>
         {pokemons.length > 0 ? (
