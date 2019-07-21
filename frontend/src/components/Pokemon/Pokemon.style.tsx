@@ -1,7 +1,8 @@
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 export default {
-  Intro: styled.div`
+  Intro: styled(Link)`
     width: 200px;
     border: 5px double black;
     font-size: 10px;
@@ -9,12 +10,26 @@ export default {
     flex-direction: column;
     align-items: center;
     padding: 10px;
-    margin-right: 10px;
-    margin-bottom: 10px;
+    margin: 5px 10px 5px 10px;
     line-height: 15px;
+    text-decoration: none;
+    color: inherit;
 
-    .numberElement{
-      font-weight:600;
+    .numberElement {
+      font-weight: 600;
+    }
+    .turnIcon {
+      position: absolute;
+      left: 75px;
+    }
+    .imageContainer {
+      position: relative;
+      width: 100px;
+    }
+    .link {
+      height: 100%;
+      display: block;
+      width: 100%;
     }
   `,
 };
