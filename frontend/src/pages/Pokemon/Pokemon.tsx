@@ -40,12 +40,7 @@ function PokemonPage() {
         ) : (
           <Style.PokemonContainer>
             <Style.Title>{pokemon.name}</Style.Title>
-            <Pokemon
-              name={pokemon.name}
-              id={pokemon.id}
-              weight={pokemon.weight}
-              height={pokemon.height}
-            />
+            <Pokemon pokemonProp={pokemon} />
           </Style.PokemonContainer>
         )
       ) : (

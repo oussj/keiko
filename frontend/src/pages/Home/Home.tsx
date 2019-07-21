@@ -35,14 +35,7 @@ function Home() {
           errorHappened ? (
             <div>The app could not retrieve pokemons</div>
           ) : (
-            pokemons.map((pokemonData: PokemonData) => (
-              <Pokemon
-                name={pokemonData.name}
-                id={pokemonData.id}
-                weight={pokemonData.weight}
-                height={pokemonData.height}
-              />
-            ))
+            pokemons.map((pokemonData: PokemonData) => <Pokemon pokemonProp={pokemonData} />)
           )
         ) : (
           <img src="loader.svg" alt="loader" />
