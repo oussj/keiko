@@ -12,18 +12,23 @@ interface State {
     weight: number;
     height: number;
   }>;
+  errorHappened: boolean;
 }
 
 class Home extends React.Component<{}, State> {
   constructor(props: any) {
     super(props);
-    this.state = { pokemons: [] };
+    this.state = { pokemons: [], errorHappened: false };
   }
 
   componentDidMount() {
-    makeGetRequest('/pokemon').then(response => {
-      this.setState({ pokemons: response.body });
-    });
+    makeGetRequest('/pokemon')
+      .then(response => {
+        this.setState({ pokemons: response.body });
+      })
+      .catch(err => {
+        this.setState({ errorHappened: true });
+      });
   }
 
   render(): React.ReactNode {
@@ -33,14 +38,11 @@ class Home extends React.Component<{}, State> {
         <Style.Title>Pokedex</Style.Title>
         <Style.Pokedex>
           {this.state.pokemons.length > 0 ? (
-            this.state.pokemons.map(pokemonData => (
-              <Pokemon
-                name={pokemonData.name}
-                id={pokemonData.id}
-                weight={pokemonData.weight}
-                height={pokemonData.height}
-              />
-            ))
+            this.state.errorHappened ? (
+              <span>The app could not retrieve pokemons</span>
+            ) : (
+              this.state.pokemons.map(pokemonData => <Pokemon pokemonProp={pokemonData} />)
+            )
           ) : (
             <img src="loader.svg" alt="loader" />
           )}

@@ -3,15 +3,14 @@ import * as React from 'react';
 import Style from './Pokemon.style';
 
 interface Props {
-  name: string;
-  id: number;
-  weight: number;
-  height: number;
+  pokemonProp: { name: string; id: number; weight: number; height: number };
 }
 
 class Pokemon extends React.Component<Props> {
   displayName(): string {
-    return this.props.name.charAt(0).toUpperCase() + this.props.name.slice(1);
+    return (
+      this.props.pokemonProp.name.charAt(0).toUpperCase() + this.props.pokemonProp.name.slice(1)
+    );
   }
 
   render(): React.ReactNode {
@@ -21,19 +20,19 @@ class Pokemon extends React.Component<Props> {
       <Style.Intro>
         <div>{this.displayName()}</div>
         <img
-          alt={this.props.name}
+          alt={this.props.pokemonProp.name}
           src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${
-            this.props.id
+            this.props.pokemonProp.id
           }.png`}
         />
         <div>
-          Id: <span className='numberElement'>{this.props.id}</span>
+          Id: <span className="numberElement">{this.props.pokemonProp.id}</span>
         </div>
         <div>
-          Weight: <span className='numberElement'>{this.props.weight}</span> kg
+          Weight: <span className="numberElement">{this.props.pokemonProp.weight}</span> kg
         </div>
         <div>
-          Height: <span className='numberElement'>{this.props.height}</span> cm
+          Height: <span className="numberElement">{this.props.pokemonProp.height}</span> cm
         </div>
       </Style.Intro>
     );
